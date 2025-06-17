@@ -28,7 +28,7 @@
             "details": "Strengthened Plating can be liberated from those who make use of them in their heavy armor, and repurposed to other ends.",
             "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcearmorplatingr_d.webp?v=1750123021041",
             "dgt_slug": "https://dune.gaming.tools/items/t2heavycomponent",
-            "demand": "low"
+            "demand": "high"
         },
         "4": {
             "id": "atmospheric_filtered_fabric",
