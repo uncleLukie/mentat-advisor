@@ -1,0 +1,694 @@
+{
+    "resources": {
+        "1": {
+            "id": "advanced_machinery",
+            "name": "Advanced Machinery",
+            "type": "Components",
+            "tier": 6,
+            "details": "A vehicle module crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards, or crafted in an Advanced Survival Fabricator",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceadvancedmachineryr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t6machinery",
+            "demand": "low"
+        },
+        "2": {
+            "id": "advanced_servoks",
+            "name": "Advanced Servoks",
+            "type": "Components",
+            "tier": 1,
+            "details": "A fabrication component used in vehicles such as Sandbikes. Found in Old Imperial remnants, such as Imperial Testing Stations.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceadvancedservoksr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/oldimperialcomponent1",
+            "demand": "low"
+        },
+        "3": {
+            "id": "armor_plating",
+            "name": "Armor Plating",
+            "type": "Components",
+            "tier": 2,
+            "details": "Strengthened Plating can be liberated from those who make use of them in their heavy armor, and repurposed to other ends.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcearmorplatingr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t2heavycomponent",
+            "demand": "low"
+        },
+        "4": {
+            "id": "atmospheric_filtered_fabric",
+            "name": "Atmospheric Filtered Fabric",
+            "type": "Components",
+            "tier": 6,
+            "details": "A utility crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards, or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceatmosphericfilteredfabricr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t6filteredfabric",
+            "demand": "low"
+        },
+        "5": {
+            "id": "ballistic_weave_fabric",
+            "name": "Ballistic Weave Fabric",
+            "type": "Components",
+            "tier": 6,
+            "details": "A light armor crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceballisticweavefabricr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t6balisticweave",
+            "demand": "low"
+        },
+        "6": {
+            "id": "blade_parts",
+            "name": "Blade Parts",
+            "type": "Components",
+            "tier": 2,
+            "details": "Even the wide variety of melee weapons tend to use standardized parts for their handful of complex elements. These can often be found on the bodies of those who favor the blade, or in their storage lockers",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcebladepartsr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t1rushercomponent",
+            "demand": "low"
+        },
+        "7": {
+            "id": "calibrated_servok",
+            "name": "Calibrated Servok",
+            "type": "Components",
+            "tier": 3,
+            "details": "These specialist servoks are commonly repurposed from heavy-duty equipment. This type of equipment was used extensively in Jabal Eifrit.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcecalibratedservokr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t3mininggallerycomponent1",
+            "demand": "low"
+        },
+        "8": {
+            "id": "carbide_blade_parts",
+            "name": "Carbide blade parts",
+            "type": "Components",
+            "tier": 6,
+            "details": "A melee weapon crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcecarbidebladepartsr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t6carbidepladeparts",
+            "demand": "low"
+        },
+        "9": {
+            "id": "carbide_scraps",
+            "name": "Carbide Scraps",
+            "type": "Components",
+            "tier": 4,
+            "details": "This industrial byproduct is closely guarded by the Maas Kharet in their most sacred site. Nobody is entirely sure why.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcecarbidescrapsr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t4mysatarilcomponent2",
+            "demand": "low"
+        },
+        "10": {
+            "id": "complex_machinery",
+            "name": "Complex Machinery",
+            "type": "Components",
+            "tier": 2,
+            "details": "Ironically, these components are found in many older fabricators and refineries, but cannot themselves be easily fabricated.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcecomplexmachineryr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t2machinecomponent",
+            "demand": "low"
+        },
+        "11": {
+            "id": "diamodine_blade_parts",
+            "name": "Diamodine blade parts",
+            "type": "Components",
+            "tier": 6,
+            "details": "A melee weapon crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards, or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcediamodinebladepartsr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t6diamodinebladeparts",
+            "demand": "low"
+        },
+        "12": {
+            "id": "diamondine_dust",
+            "name": "Diamondine Dust",
+            "type": "Components",
+            "tier": 4,
+            "details": "This industrial byproduct is closely guarded by the Maas Kharet in their most sacred site. Nobody is entirely sure why.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcediamondinedustr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t4mysatarilcomponent1",
+            "demand": "low"
+        },
+        "13": {
+            "id": "emf_generator",
+            "name": "EMF Generator",
+            "type": "Components",
+            "tier": 1,
+            "details": "A fabrication component found in Fremen areas, such as caves. Used in Cutterays.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceemfgeneratorr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/fremencomponent1",
+            "demand": "low"
+        },
+        "14": {
+            "id": "fluid_efficient_industrial_pump",
+            "name": "Fluid Efficient Industrial Pump",
+            "type": "Components",
+            "tier": 6,
+            "details": "A utility crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards, or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcefluidefficientindustrialpumpr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t6industrialpump",
+            "demand": "low"
+        },
+        "15": {
+            "id": "fluted_heavy_caliber_compressor",
+            "name": "Fluted Heavy Caliber Compressor",
+            "type": "Components",
+            "tier": 6,
+            "details": "A weapon crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards, or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceflutedheavycalibercompressorr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t6heavycallibercompressor",
+            "demand": "low"
+        },
+        "16": {
+            "id": "fluted_light_caliber_compressor",
+            "name": "Fluted Light Caliber Compressor",
+            "type": "Components",
+            "tier": 6,
+            "details": "A weapon crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards, or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceflutedlightcalibercompressorr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t6lightcallibercompressor",
+            "demand": "low"
+        },
+        "17": {
+            "id": "gun_parts",
+            "name": "Gun Parts",
+            "type": "Components",
+            "tier": 2,
+            "details": "Key components for a wide variety of standard ranged weapons, often salvaged from the bodies of those who no longer have need for them.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcegunpartsr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t1assaultcomponent",
+            "demand": "low"
+        },
+        "18": {
+            "id": "heavy_caliber_compressor",
+            "name": "Heavy Caliber Compressor",
+            "type": "Components",
+            "tier": 4,
+            "details": "The Sandflies often keep stashes of these components in their outposts, as they can be turned to various useful purposes.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceheavycalibercompressorr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t4harkspicesilocomponent2",
+            "demand": "low"
+        },
+        "19": {
+            "id": "holtzman_actuator",
+            "name": "Holtzman Actuator",
+            "type": "Components",
+            "tier": 1,
+            "details": "Those who make regular use of suspensor belts and similar technology often leave caches of these replacement parts in places only they can reach.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceholtzmanactuatorr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t1explorationcomponent",
+            "demand": "low"
+        },
+        "20": {
+            "id": "hydraulic_piston",
+            "name": "Hydraulic Piston",
+            "type": "Components",
+            "tier": 5,
+            "details": "A component used to craft vehicle engines. The Great Houses have a stranglehold on this type of component on Arrakis and any who possess them must have forcibly wrested them from their control.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcehydraulicpistonr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t5factionbasecomponent2",
+            "demand": "low"
+        },
+        "21": {
+            "id": "improved_holtzman_actuator",
+            "name": "Improved Holtzman Actuator",
+            "type": "Components",
+            "tier": 6,
+            "details": "A Traversal crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards, or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceimprovedholtzmanactuatorr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t6holtzmanactuator",
+            "demand": "low"
+        },
+        "22": {
+            "id": "improved_watertube",
+            "name": "Improved Watertube",
+            "type": "Components",
+            "tier": 6,
+            "details": "A stillsuit crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceimprovedwatertuber_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t6watertube",
+            "demand": "low"
+        },
+        "23": {
+            "id": "industrial_pump",
+            "name": "Industrial Pump",
+            "type": "Components",
+            "tier": 4,
+            "details": "There are few uses for industrial-strength pumps on a planet as dry as Arrakis, but the Sandflies do utilize them in their operations in Sentinel City.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceindustrialpumpr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t4harkspicesilocomponent1",
+            "demand": "low"
+        },
+        "24": {
+            "id": "insulated_fabric",
+            "name": "Insulated Fabric",
+            "type": "Components",
+            "tier": 4,
+            "details": "Insulated fabric was one of the cottage industries of the O'odham, before the pyons were displaced from their old villages.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceinsulatedfabricr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t4pyonvillagecomponent",
+            "demand": "low"
+        },
+        "25": {
+            "id": "irradiated_core",
+            "name": "Irradiated Core",
+            "type": "Components",
+            "tier": 6,
+            "details": "A power crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards, or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceirradiatedcorer_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t6irradiatedcore",
+            "demand": "low"
+        },
+        "26": {
+            "id": "irradiated_slag",
+            "name": "Irradiated Slag",
+            "type": "Components",
+            "tier": 5,
+            "details": "A looted component used in crafting. Found in Radiated Core in the Sheol.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceirradiatedslagr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t5radiatedcorecomponent",
+            "demand": "low"
+        },
+        "27": {
+            "id": "light_caliber_compressor",
+            "name": "Light Caliber Compressor",
+            "type": "Components",
+            "tier": 4,
+            "details": "The Sandflies often keep stashes of these components in their outposts, as they can be turned to various useful purposes.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcelightcalibercompressorr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t4harkspicesilocomponent3",
+            "demand": "low"
+        },
+        "28": {
+            "id": "mechanical_parts",
+            "name": "Mechanical Parts",
+            "type": "Components",
+            "tier": 1,
+            "details": "A fabrication component used in firearms. Found in Great House ruins, such as Shipwrecks.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceadvancedmechanicalpartsr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/greathousecomponent2",
+            "demand": "low"
+        },
+        "29": {
+            "id": "micro-sandwich_fabric",
+            "name": "Micro-sandwich Fabric",
+            "type": "Components",
+            "tier": 1,
+            "details": "The Micro-Sandwich Fabric is a shorthand for the multi-layered water recycling component used in Fremen equipment such as stillsuits. Look for these in caves.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcemicrosandwichfabricr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/fremencomponent2",
+            "demand": "low"
+        },
+        "30": {
+            "id": "military_power_regulator",
+            "name": "Military Power Regulator",
+            "type": "Components",
+            "tier": 5,
+            "details": "A component used to craft vehicle power units. The Great Houses have a stranglehold on this type of component on Arrakis and any who possess them must have forcibly wrested them from their control.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcemilitarypowerregulatorr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t5factionbasecomponent1",
+            "demand": "low"
+        },
+        "31": {
+            "id": "off-world_medical_supplies",
+            "name": "Off-world Medical Supplies",
+            "type": "Components",
+            "tier": 3,
+            "details": "Fremen medical tradition relies on only what the desert provides. Everyone else uses off-world pharmaceuticals, if they can get them.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceoff-worldmedicalsuppliesr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t3vendorcomponent1",
+            "demand": "low"
+        },
+        "32": {
+            "id": "overclocked_power_regulator",
+            "name": "Overclocked Power Regulator",
+            "type": "Components",
+            "tier": 6,
+            "details": "A vehicle module crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards, or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceoverclockedpowerregulatorr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t6powerregulator",
+            "demand": "low"
+        },
+        "33": {
+            "id": "particle_capacitor",
+            "name": "Particle Capacitor",
+            "type": "Components",
+            "tier": 1,
+            "details": "A fabrication component found in Old Imperial remnants, such as Imperial Testing Stations. Used in Holtzman tech or special constructions, such as Boost modules for vehicles.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcesubatomicparticlecapacitorr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/oldimperialcomponent2",
+            "demand": "low"
+        },
+        "34": {
+            "id": "plasteel_composite_armor_plating",
+            "name": "Plasteel Composite Armor Plating",
+            "type": "Components",
+            "tier": 6,
+            "details": "An Armor crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards, or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceplasteelcompositearmorplatingr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t6armorplating",
+            "demand": "low"
+        },
+        "35": {
+            "id": "plasteel_composite_blade_parts",
+            "name": "Plasteel Composite Blade Parts",
+            "type": "Components",
+            "tier": 6,
+            "details": "A Melee weapon crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards, or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceplasteelcompositebladepartsr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t6bladepart",
+            "demand": "low"
+        },
+        "36": {
+            "id": "plasteel_composite_gun_parts",
+            "name": "Plasteel Composite Gun Parts",
+            "type": "Components",
+            "tier": 6,
+            "details": "A Ranged Weapon crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards, or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceplasteelcompositegunpartsr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t6gunpart",
+            "demand": "low"
+        },
+        "37": {
+            "id": "plasteel_microflora_fiber",
+            "name": "Plasteel Microflora Fiber",
+            "type": "Components",
+            "tier": 1,
+            "details": "A fabrication component used in armor. Found in Great House ruins, such as Shipwrecks.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceplasteelmicroflorafiberr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/greathousecomponent1",
+            "demand": "low"
+        },
+        "38": {
+            "id": "plasteel_plate",
+            "name": "Plasteel Plate",
+            "type": "Components",
+            "tier": 6,
+            "details": "A crafting component for crafting plasteel crafting components. Can be found in the Deep Desert, or obtained from Landsraad rewards.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceplasteelplater_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t6plasteelcomponent",
+            "demand": "low"
+        },
+        "39": {
+            "id": "precision_range_finder",
+            "name": "Precision Range Finder",
+            "type": "Components",
+            "tier": 6,
+            "details": "A Weapon crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards, or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceprecisionrangefinderr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t6rangefinder",
+            "demand": "low"
+        },
+        "40": {
+            "id": "range_finder",
+            "name": "Range Finder",
+            "type": "Components",
+            "tier": 3,
+            "details": "Unsurprisingly, if you want to acquire a range-finder, look for sharpshooters. But remember, if you can see them, they can probably see you.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcerangefinderr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t3marksmancomponent",
+            "demand": "low"
+        },
+        "41": {
+            "id": "ray_amplifier",
+            "name": "Ray Amplifier",
+            "type": "Components",
+            "tier": 3,
+            "details": "Industrial production of bulk ores still commonly relies on drilling, but for mining more delicate materials such as crystals, a sophisticated cutteray is worth the investment. This type of equipment was used extensively to mine large parts of the Hagga Rift.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcerayamplifierr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t3mininggallerycomponent2",
+            "demand": "low"
+        },
+        "42": {
+            "id": "sandtrout_leathers",
+            "name": "Sandtrout Leathers",
+            "type": "Components",
+            "tier": 4,
+            "details": "The Maas Kharet have a particular affinity with this type of leather, and often make use of it in their clothing.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcetroutleatherr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t4maaskharetcomponent1",
+            "demand": "low"
+        },
+        "43": {
+            "id": "spice-infused_aluminum_dust",
+            "name": "Spice-infused Aluminum Dust",
+            "type": "Components",
+            "tier": 4,
+            "details": "Truly Unique items often rely on spice-infused metal to enhance their qualities. Such metals are jealously horded by the most powerful groups, locked away in their most secure containers.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcespiceinfusedaluminiumingotr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t4uniquecomponent",
+            "demand": "low"
+        },
+        "44": {
+            "id": "spice-infused_copper_dust",
+            "name": "Spice-infused Copper Dust",
+            "type": "Components",
+            "tier": 1,
+            "details": "Truly Unique items often rely on spice-infused metal to enhance their qualities. Such metals are jealously horded by the most powerful groups, locked away in their most secure containers.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcespiceinfusedcopperingotr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t1uniquecomponent",
+            "demand": "low"
+        },
+        "45": {
+            "id": "spice-infused_duraluminum_dust",
+            "name": "Spice-infused Duraluminum Dust",
+            "type": "Components",
+            "tier": 5,
+            "details": "Truly Unique items often rely on spice-infused metal to enhance their qualities. Such metals are jealously horded by the most powerful groups, locked away in their most secure containers.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcespiceinfusedduraluminiumingotr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t5uniquecomponent",
+            "demand": "low"
+        },
+        "46": {
+            "id": "spice-infused_iron_dust",
+            "name": "Spice-infused Iron Dust",
+            "type": "Components",
+            "tier": 2,
+            "details": "Truly Unique items often rely on spice-infused metal to enhance their qualities. Such metals are jealously horded by the most powerful groups, locked away in their most secure containers.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcespiceinfusedironingotr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t2uniquecomponent",
+            "demand": "low"
+        },
+        "47": {
+            "id": "spice-infused_plastanium_dust",
+            "name": "Spice-infused Plastanium Dust",
+            "type": "Components",
+            "tier": 6,
+            "details": "Truly Unique items often rely on spice-infused metal to enhance their qualities. Such metals are jealously horded by the most powerful groups, locked away in their most secure containers.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcespiceinfuseddeepdesertiumingotr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t6uniquecomponent",
+            "demand": "low"
+        },
+        "48": {
+            "id": "spice-infused_steel_dust",
+            "name": "Spice-infused Steel Dust",
+            "type": "Components",
+            "tier": 3,
+            "details": "Truly Unique items often rely on spice-infused metal to enhance their qualities. Such metals are jealously horded by the most powerful groups, locked away in their most secure containers.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcespiceinfusedsteelingotr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t3uniquecomponent",
+            "demand": "low"
+        },
+        "49": {
+            "id": "stillsuit_tubing",
+            "name": "Stillsuit Tubing",
+            "type": "Components",
+            "tier": 4,
+            "details": "The best tubing of course comes from the Fremen, but they do not share. The Maas Kharet are seen by many as a cheap imitation of the Fremen, and they produce a cheap imitation of Fremen stillsuit tubing.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcestillsuittubingr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t4maaskharetcomponent2",
+            "demand": "low"
+        },
+        "50": {
+            "id": "thermo-responsive_ray_amplifier",
+            "name": "Thermo-Responsive Ray Amplifier",
+            "type": "Components",
+            "tier": 6,
+            "details": "A Utility crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards, or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcethermoresponsiverayamplifierr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t6rayamplifier",
+            "demand": "low"
+        },
+        "51": {
+            "id": "thermoelectric_cooler",
+            "name": "Thermoelectric Cooler",
+            "type": "Components",
+            "tier": 5,
+            "details": "A crafting component used to cool down Harvesting tools used in the Deep Desert. Spare parts are usually found in the Deep Desert on the Shield Wall.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcethermoelectriccoolerr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t5deepdesertshieldwallcomponent",
+            "demand": "low"
+        },
+        "52": {
+            "id": "tri-forged_hydraulic_piston",
+            "name": "Tri-Forged Hydraulic Piston",
+            "type": "Components",
+            "tier": 6,
+            "details": "A vehicle module crafting component used in plastanium tier crafting. Can be found in the Deep Desert, obtained from Landsraad rewards, or crafted in an Advanced Survival Fabricator.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcetriforgedhydraulicpistonr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/t6hydraulicpiston",
+            "demand": "low"
+        },
+        "53": {
+            "id": "worm_tooth",
+            "name": "Worm Tooth",
+            "type": "Components",
+            "tier": 1,
+            "details": "A crafting component obtained from dying to the sandworm. Can be used to craft an unfixed crysknife.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcegiantsandwormtoothr_d.webp?v=1750128788425",
+            "dgt_slug": "https://dune.gaming.tools/items/wormtooth",
+            "demand": "low"
+        },
+        "54": {
+            "id": "agave_seeds",
+            "name": "Agave Seeds",
+            "type": "Resources",
+            "tier": 4,
+            "details": "In common with its distant ancestors, the fruits of the Arrakeen Agave contain a large mass of seeds, which are put to many uses by those who have ready access to them.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcesaguarorawr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/saguaroresourceraw",
+            "demand": "low"
+        },
+        "55": {
+            "id": "aluminum_ore",
+            "name": "Aluminum Ore",
+            "type": "Resources",
+            "tier": 4,
+            "details": "Aluminum ore, mined from an Aluminum deposit. Can be refined into Aluminum Ingots at a Medium Ore Refinery to create new products that require it.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcebauxiteorer_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/bauxiteore",
+            "demand": "low"
+        },
+        "56": {
+            "id": "basalt_stone",
+            "name": "Basalt Stone",
+            "type": "Resources",
+            "tier": 4,
+            "details": "Stone which can be refined for usage in construction.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcebasaltr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/basalt",
+            "demand": "low"
+        },
+        "57": {
+            "id": "carbon_ore",
+            "name": "Carbon Ore",
+            "type": "Resources",
+            "tier": 3,
+            "details": "Carbon ore, mined from a Carbon deposit. Can be processed with Iron Ingots together to create refined Steel Ingots at any Ore Refinery to create new products that require it.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcedolomiterockr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/dolomiterock",
+            "demand": "low"
+        },
+        "58": {
+            "id": "erythrite_crystal",
+            "name": "Erythrite Crystal",
+            "type": "Resources",
+            "tier": 3,
+            "details": "Erythrite Crystal, mined from an Erythrite deposit in the Hagga Rift. Can be refined into Cobalt Paste at a Chemical Refinery to create new products that require it.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceerythritecrystalr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/erythritecrystal",
+            "demand": "low"
+        },
+        "59": {
+            "id": "flour_sand",
+            "name": "Flour Sand",
+            "type": "Resources",
+            "tier": 2,
+            "details": "Found in flour sand drifts on the open sands, predominantly in the Vermilius Gap. Can be harvested by hand or with a Static Compactor. Can be refined into Silicone Blocks in a Chemical Refinery.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcefloursandr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/floursand",
+            "demand": "low"
+        },
+        "60": {
+            "id": "fuel_cell",
+            "name": "Fuel Cell",
+            "type": "Resources",
+            "tier": 1,
+            "details": "Found throughout the world, fuel cells can generate power for bases directly when loaded into a Fuel Generator. They can be refined at a Chemical Refinery into Vehicle Fuel Cells to power vehicles. ",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcesalvagescrapfuelpickup02r_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/oil",
+            "demand": "low"
+        },
+        "61": {
+            "id": "granite_stone",
+            "name": "Granite Stone",
+            "type": "Resources",
+            "tier": 1,
+            "details": "Stronger than the sandstones that crumble in the storms that sweep across Arrakis, granite stone is widely used a basic building material. It is found almost everywhere there is dirt.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcerhyoliter_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/stone",
+            "demand": "low"
+        },
+        "62": {
+            "id": "iron_ore",
+            "name": "Iron Ore",
+            "type": "Resources",
+            "tier": 2,
+            "details": "Iron ore, mined from an Iron deposit. Can be refined into Iron Ingots at any Ore Refinery to create new products that require it.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcemagnetiteorer_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/magnetiteore",
+            "demand": "low"
+        },
+        "63": {
+            "id": "jasmium_crystal",
+            "name": "Jasmium Crystal",
+            "type": "Resources",
+            "tier": 5,
+            "details": "Jasmium Crystal, mined from a Jasmium deposit. Can be refined together with Aluminum Ingots into Duraluminum Ingots at a Medium Ore Refinery to create new products that require it.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcejasmiumcrystalr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/jasmiumcrystal",
+            "demand": "low"
+        },
+        "64": {
+            "id": "plant_fiber",
+            "name": "Plant Fiber",
+            "type": "Resources",
+            "tier": 1,
+            "details": "Resource that can be picked everywhere in the world where there is solid land for it to take root. Woven to fibers used in armor and bandages.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceplantfiberr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/plantfiber",
+            "demand": "low"
+        },
+        "65": {
+            "id": "salvaged_metal",
+            "name": "Salvaged Metal",
+            "type": "Resources",
+            "tier": 1,
+            "details": "This metal has been salvaged from wreckage left on Arrakis. Can be recovered with a Cutteray. Used for crafting rudimentary metal items.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcescrapmetalr_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/scrapmetal",
+            "demand": "low"
+        },
+        "66": {
+            "id": "spice_residue",
+            "name": "Spice Residue",
+            "type": "Resources",
+            "tier": 2,
+            "details": "Residue left from spice refining, useful in crafting.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcespiceresiduer_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/spiceresidue",
+            "demand": "low"
+        },
+        "67": {
+            "id": "spice_sand",
+            "name": "Spice Sand",
+            "type": "Resources",
+            "tier": 2,
+            "details": "Can be harvested by hand or with a Static Compactor at Spice Blow sites before the Worm arrives. Can be refined into valuable Spice Melange at a Spice Refinery.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourceunrefinedspicer_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/spicesand",
+            "demand": "low"
+        },
+        "68": {
+            "id": "stravidium_mass",
+            "name": "Stravidium Mass",
+            "type": "Resources",
+            "tier": 6,
+            "details": "Raw stravidium mass can be found in the deep desert, and refined into fibers.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcestravidiumorer_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t6resourceb",
+            "demand": "low"
+        },
+        "69": {
+            "id": "titanium_ore",
+            "name": "Titanium Ore",
+            "type": "Resources",
+            "tier": 6,
+            "details": "Titanium ore is found in the deep desert, and most commonly utilized in the production of plastanium, an alloy of titanium and stravidium.",
+            "image_url": "https://gtcdn.info/dune/1.1.0.11/images/dune/gui/textures/icons/gameplay/items/resources/t_ui_iconresourcetitaniumorer_d.webp?v=1750123021041",
+            "dgt_slug": "https://dune.gaming.tools/items/t6resourcea",
+            "demand": "low"
+        }
+    }
+}

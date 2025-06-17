@@ -1,5 +1,5 @@
-py-cord~=latest
-tinydb~=latest
-python-dotenv~=latest
-requests~=latest
-beautifulsoup4~=latest
+py-cord
+tinydb~=4.8.2
+python-dotenv~=1.1.0
+requests~=2.32.4
+discord
