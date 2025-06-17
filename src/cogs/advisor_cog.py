@@ -2,177 +2,185 @@ import discord
 from discord.ext import commands, tasks
 from discord.commands import SlashCommandGroup
 
-
-# This is the main view for our demand report message
+# ───────────────────────────── VIEW & COMPONENTS ────────────────────────────
 class DemandReportView(discord.ui.View):
     def __init__(self, db_handler):
         super().__init__(timeout=None)
         self.db = db_handler
-        self.build_view()
+        self._rebuild()
 
-    def build_view(self):
+    def _rebuild(self):
+        self.clear_items()
         items = self.db.get_all_by_demand(levels=["high", "medium"])
-        items.sort(key=lambda x: x['name'])
-
-        # Limit to 25 components, as that's the max on a message
-        for item in items[:25]:
+        items.sort(key=lambda x: x["name"])
+        for item in items[:25]:            # Discord hard-limit = 25
             self.add_item(DemandSelect(item, self.db))
 
 
-# This is the dropdown menu component for each item in the report
 class DemandSelect(discord.ui.Select):
     def __init__(self, item: dict, db_handler):
         self.item_data = item
         self.db = db_handler
 
         options = [
-            discord.SelectOption(label="🔥 High", value="high", description=f"Set demand for {item['name']} to High."),
-            discord.SelectOption(label="🟠 Medium", value="medium",
-                                 description=f"Set demand for {item['name']} to Medium."),
-            discord.SelectOption(label="🟢 Low", value="low", description=f"Set demand for {item['name']} to Low.")
+            discord.SelectOption(
+                label="🔥 High",
+                value="high",
+                description=f"Set demand for {item['name']} to High."
+            ),
+            discord.SelectOption(
+                label="🟠 Medium",
+                value="medium",
+                description=f"Set demand for {item['name']} to Medium."
+            ),
+            discord.SelectOption(
+                label="🟢 Low",
+                value="low",
+                description=f"Set demand for {item['name']} to Low."
+            ),
         ]
 
         super().__init__(
-            placeholder=f"Demand: {item['demand'].capitalize()} - {item['name']}",
+            placeholder=f"Demand: {item['demand'].capitalize()} – {item['name']}",
             options=options,
-            custom_id=f"demand_select_{item['id']}"
+            custom_id=f"demand_select_{item['id']}",
         )
 
     async def callback(self, interaction: discord.Interaction):
-        new_demand = self.values[0]
-        self.db.set_demand(self.item_data['id'], new_demand)
+        new_level = self.values[0]
+        self.db.set_demand(self.item_data["id"], new_level)
+        await interaction.response.send_message(
+            f"Demand for **{self.item_data['name']}** set to **{new_level}**.",
+            ephemeral=True,
+        )
 
-        await interaction.response.send_message(f"Demand for **{self.item_data['name']}** set to **{new_demand}**.",
-                                                ephemeral=True)
+        # auto-refresh the live embed
+        advisor = interaction.client.get_cog("AdvisorCog")
+        if advisor and interaction.channel:
+            await advisor.post_demand_report(interaction.channel)
 
-        advisor_cog = interaction.client.get_cog('AdvisorCog')
-        if advisor_cog and interaction.channel:
-            await advisor_cog.post_demand_report(interaction.channel)
-
-
+# ────────────────────────────────── COG ─────────────────────────────────────
 class AdvisorCog(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.db = bot.db_handler
 
-    # Define command groups
-    report = SlashCommandGroup("report", "Commands for managing the resource demand report.")
-    demand = SlashCommandGroup("demand", "Commands for manually setting resource demand.")
+    report = SlashCommandGroup("report", "Resource-report commands")
+    demand = SlashCommandGroup("demand", "Set resource demand manually")
 
+    # scheduler --------------------------------------------------------------
     @tasks.loop(minutes=30)
     async def report_loop(self):
-        channel_id = self.db.get_setting('report_channel_id')
-        if channel_id:
-            channel = self.bot.get_channel(channel_id)
-            if channel:
-                await self.post_demand_report(channel)
+        chan_id = self.db.get_setting("report_channel_id")
+        channel = self.bot.get_channel(chan_id) if chan_id else None
+        if isinstance(channel, discord.TextChannel):
+            await self.post_demand_report(channel)
 
+    # embed/post logic -------------------------------------------------------
     async def post_demand_report(self, channel: discord.TextChannel):
         items = self.db.get_all_by_demand(levels=["high", "medium"])
-        embed = discord.Embed(title="Arrakis Resource Demand",
-                              description="Mentat analysis of current resource requirements. Set demand levels below.",
-                              color=discord.Color.orange())
+        embed = discord.Embed(
+            title="Arrakis Resource Demand",
+            description="Mentat analysis of current needs.",
+            color=discord.Color.orange()
+        )
 
-        if not items:
-            embed.description = "All resource demands are currently low. No pressing needs."
-            embed.color = discord.Color.green()
-            view = discord.ui.View(timeout=None)
-        else:
-            high_demand_items = sorted([item for item in items if item['demand'] == 'high'], key=lambda x: x['name'])
-            medium_demand_items = sorted([item for item in items if item['demand'] == 'medium'],
-                                         key=lambda x: x['name'])
+        view: discord.ui.View | None = None
+        if items:
+            high = sorted([i for i in items if i["demand"] == "high"], key=lambda x: x["name"])
+            med  = sorted([i for i in items if i["demand"] == "medium"], key=lambda x: x["name"])
 
-            if high_demand_items:
-                value = "\n".join([f"[{item['name']}]({item['dgt_slug']})" for item in high_demand_items])
-                embed.add_field(name="🔥 High Demand", value=value, inline=False)
-            if medium_demand_items:
-                value = "\n".join([f"[{item['name']}]({item['dgt_slug']})" for item in medium_demand_items])
-                embed.add_field(name="🟠 Medium Demand", value=value, inline=False)
+            if high:
+                embed.add_field(
+                    name="🔥 High Demand",
+                    value="\n".join(f"[{i['name']}]({i['dgt_slug']})" for i in high),
+                    inline=False,
+                )
+            if med:
+                embed.add_field(
+                    name="🟠 Medium Demand",
+                    value="\n".join(f"[{i['name']}]({i['dgt_slug']})" for i in med),
+                    inline=False,
+                )
 
-            embed.set_thumbnail(
-                url=high_demand_items[0]['image_url'] if high_demand_items else medium_demand_items[0]['image_url'])
-            embed.set_footer(text="The Spice must flow. This message will auto-update.")
+            thumb_src = (high or med)[0]["image_url"]
+            embed.set_thumbnail(url=thumb_src)
+            embed.set_footer(text="The Spice must flow. This message auto-updates.")
             view = DemandReportView(self.db)
+        else:
+            embed.description = "All demands are low – no pressing needs."
+            embed.color = discord.Color.green()
 
-        await self.update_or_post_message(channel, embed, view)
+        await self._upsert_message(channel, embed, view)
 
-    async def update_or_post_message(self, channel, embed, view):
-        last_message_id = self.db.get_setting('last_report_message_id')
-        if last_message_id:
+    async def _upsert_message(self, channel, embed, view):
+        msg_id = self.db.get_setting("last_report_message_id")
+        if msg_id:
             try:
-                message = await channel.fetch_message(last_message_id)
-                await message.edit(embed=embed, view=view)
+                msg = await channel.fetch_message(int(msg_id))
+                await msg.edit(embed=embed, view=view)
                 return
             except (discord.NotFound, discord.Forbidden):
                 pass
+        sent = await channel.send(embed=embed, view=view)
+        self.db.set_setting("last_report_message_id", sent.id)
 
-        new_message = await channel.send(embed=embed, view=view)
-        self.db.set_setting('last_report_message_id', new_message.id)
-
-    # --- BOT COMMANDS ---
-    @report.command(name="start", description="Sets this channel for automatic demand reports.")
+    # ──────────────── /report commands ─────────────────────────────────────
+    @report.command(name="start", description="Use this channel for auto-reports")
     @discord.default_permissions(manage_guild=True)
-    async def start_reporting(self, ctx: discord.ApplicationContext):
-        self.db.set_setting('report_channel_id', ctx.channel.id)
-        await ctx.respond(f"Confirmed. I will now post demand reports in this channel.", ephemeral=True)
+    async def report_start(self, ctx: discord.ApplicationContext):
+        self.db.set_setting("report_channel_id", ctx.channel.id)
+        await ctx.respond("Channel registered for reports.", ephemeral=True)
         await self.post_demand_report(ctx.channel)
 
-    @report.command(name="interval", description="Changes the time between reports.")
+    @report.command(name="interval", description="Change report frequency")
     @discord.default_permissions(manage_guild=True)
-    async def set_interval(self, ctx: discord.ApplicationContext,
-                           minutes: discord.Option(int, "New interval in minutes", min_value=1)):
-        self.db.set_setting('report_interval_minutes', minutes)
+    async def report_interval(
+        self, ctx: discord.ApplicationContext,
+        minutes: discord.Option(int, "Interval in minutes", min_value=1)
+    ):
+        self.db.set_setting("report_interval_minutes", minutes)
         self.report_loop.change_interval(minutes=minutes)
-        await ctx.respond(f"Reporting interval changed to **{minutes} minutes**.", ephemeral=True)
+        await ctx.respond(f"Interval set to **{minutes} min**.", ephemeral=True)
 
-    @report.command(name="now", description="Forces an immediate demand report in the configured channel.")
+    @report.command(name="now", description="Generate a report immediately")
     async def report_now(self, ctx: discord.ApplicationContext):
-        channel_id = self.db.get_setting('report_channel_id')
-        if not channel_id:
-            return await ctx.respond("The report channel has not been set. Use `/report start` first.", ephemeral=True)
-        channel = self.bot.get_channel(channel_id)
-        if channel:
-            await ctx.respond("Generating a fresh report now...", ephemeral=True)
-            await self.post_demand_report(channel)
-        else:
-            await ctx.respond(f"Error: I can't find the configured channel (ID: {channel_id}).", ephemeral=True)
+        chan_id = self.db.get_setting("report_channel_id")
+        channel = self.bot.get_channel(chan_id) if chan_id else None
+        if not channel:
+            return await ctx.respond("Report channel not configured.", ephemeral=True)
+        await ctx.respond("Generating report…", ephemeral=True)
+        await self.post_demand_report(channel)
 
-    @report.command(name="sync", description="Forces a data sync from the Google Sheet database.")
+    @report.command(name="sync", description="Force Google-Sheet DB sync")
     @discord.default_permissions(manage_guild=True)
-    async def sync_db(self, ctx: discord.ApplicationContext):
+    async def report_sync(self, ctx: discord.ApplicationContext):
         await ctx.defer(ephemeral=True)
         self.db.sync_from_google_sheet()
-        await ctx.followup.send("Database sync with Google Sheet complete.")
+        await ctx.followup.send("Database sync complete.", ephemeral=True)
 
-    # --- THIS IS THE FIXED AUTOCOMPLETE FUNCTION ---
-    async def search_items(self, ctx: discord.AutocompleteContext):
-        """Autocompletes item names, sorted alphabetically by name."""
-        query = ctx.value.lower()
-        all_items = self.db.get_all_resources()
+    # ──────────────── /demand set ───────────────────────────────────────────
+    async def _ac_items(self, ctx: discord.AutocompleteContext):
+        q = ctx.value.lower()
+        items = sorted(self.db.get_all_resources(), key=lambda x: x["name"])
+        return [i["name"] for i in items if q in i["name"].lower()][:25]
 
-        # Re-sort the entire list by name for better discoverability.
-        all_items.sort(key=lambda x: x['name'])
+    @demand.command(name="set", description="Override an item’s demand")
+    async def demand_set(
+        self, ctx: discord.ApplicationContext,
+        item: discord.Option(str, autocomplete=_ac_items),
+        level: discord.Option(str, choices=["high", "medium", "low"])
+    ):
+        entry = self.db.resources_table.get(self.db.Resource.name == item)
+        if not entry:
+            return await ctx.respond("Item not found.", ephemeral=True)
+        self.db.set_demand(entry["id"], level)
+        await ctx.respond(f"Demand for **{entry['name']}** set to **{level}**.", ephemeral=True)
 
-        # Filter the newly sorted list based on the user's input.
-        filtered_items = [
-            item['name'] for item in all_items
-            if query in item['name'].lower()
-        ]
-
-        return filtered_items[:25]  # Return the first 25 matches
-
-    @demand.command(name="set", description="Manually set the demand for a specific resource.")
-    async def set_demand_cmd(self, ctx: discord.ApplicationContext,
-                             item: discord.Option(str, "The name of the item to set.", autocomplete=search_items),
-                             level: discord.Option(str, "The demand level.", choices=["high", "medium", "low"])
-                             ):
-        selected_item = self.db.resources_table.get(self.db.Resource.name == item)
-        if not selected_item:
-            return await ctx.respond("Error: Could not find that item.", ephemeral=True)
-
-        self.db.set_demand(selected_item['id'], level)
-        await ctx.respond(f"Manual demand for **{selected_item['name']}** set to **{level}**.", ephemeral=True)
-
+        chan_id = self.db.get_setting("report_channel_id")
+        channel = self.bot.get_channel(chan_id) if chan_id else None
+        if isinstance(channel, discord.TextChannel):
+            await self.post_demand_report(channel)
 
 def setup(bot):
     bot.add_cog(AdvisorCog(bot))
