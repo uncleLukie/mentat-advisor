@@ -1,0 +1,5 @@
+py-cord~=latest
+tinydb~=latest
+python-dotenv~=latest
+requests~=latest
+beautifulsoup4~=latest
