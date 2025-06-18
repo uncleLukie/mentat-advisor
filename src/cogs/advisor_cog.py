@@ -1,11 +1,10 @@
-import random, discord
+# ──────────────── src/cogs/advisor_cog.py ────────────────
+import random, textwrap, discord
 from discord.ext import commands, tasks
 from discord.commands import SlashCommandGroup
 
-
-# ─────────────────────────── helpers ─────────────────────────────
+# ────────────────────── Mentat quips ──────────────────────
 def _quip() -> str:
-    """Return a random Mentat line for Embed footers."""
     lines = [
         "“Plans within plans, Baron.”",
         "“The spice must flow — and so must the supplies.”",
@@ -64,39 +63,23 @@ def _quip() -> str:
     ]
     return random.choice(lines)
 
-
-def _chunk(lines: list[str], max_len: int = 900) -> list[list[str]]:
-    """Split a list of strings into size-bounded chunks."""
-    bucket, buckets, size = [], [], 0
-    for line in lines:
-        if size + len(line) + 1 > max_len and bucket:
-            buckets.append(bucket)
-            bucket, size = [], 0
-        bucket.append(line); size += len(line) + 1
-    if bucket:
-        buckets.append(bucket)
-    return buckets
-
-
-# ─────────────────────── VIEW & SELECT ───────────────────────
+# ────────────────────── View & Select ──────────────────────
 class DemandView(discord.ui.View):
-    """One-select view tied to a single resource."""
     def __init__(self, item: dict, db):
         super().__init__(timeout=None)
-        self.db = db
         self.add_item(DemandSelect(item, db))
 
 class DemandSelect(discord.ui.Select):
-    def __init__(self, item, db):
+    def __init__(self, item: dict, db):
         self.item, self.db = item, db
-        opts = [
+        options = [
             discord.SelectOption(label="🔥 High",   value="high"),
             discord.SelectOption(label="🟠 Medium", value="medium"),
             discord.SelectOption(label="🟢 Low",    value="low"),
         ]
         super().__init__(
-            placeholder=f"{item['name']} • {item['demand'].capitalize()}",
-            options=opts,
+            placeholder=f"{item['name']} (T{item['tier']}) • {item['demand'].capitalize()}",
+            options=options,
             custom_id=f"demand_{item['id']}"
         )
 
@@ -107,20 +90,20 @@ class DemandSelect(discord.ui.Select):
             f"**{self.item['name']}** demand set to **{lvl}**.",
             ephemeral=True,
         )
-        # refresh that single item’s message
         cog = inter.client.get_cog("AdvisorCog")
         if cog:
             await cog._post_single(inter.channel, self.item["id"])
 
 # ──────────────────────────── COG ────────────────────────────
 class AdvisorCog(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot, self.db = bot, bot.db_handler
 
+    # slash-command groups
     report = SlashCommandGroup("report", "Demand-report commands")
     demand = SlashCommandGroup("demand", "Manual demand override")
 
-    # background loop – keep auto-posting
+    # ─── scheduler ────────────────────────────────────────────
     @tasks.loop(minutes=30)
     async def report_loop(self):
         cid = self.db.get_setting("report_channel_id")
@@ -128,53 +111,54 @@ class AdvisorCog(commands.Cog):
         if isinstance(chan, discord.TextChannel):
             await self.post_demand_report(chan)
 
-    # ───────────── public entry – build or refresh all ─────────────
+    # ─── rebuild all high/medium posts ───────────────────────
     async def post_demand_report(self, channel: discord.TextChannel):
         items = self.db.get_all_by_demand(["high", "medium"])
-        if not items:                       # nothing critical – clean up
-            for setting in list(self.db.settings_table):
-                if setting["key"].startswith("msg_"):
+        if not items:
+            # purge any orphan messages
+            for s in list(self.db.settings_table):
+                if s["key"].startswith("msg_"):
                     try:
-                        msg = await channel.fetch_message(int(setting["value"]))
-                        await msg.delete()
+                        m = await channel.fetch_message(int(s["value"]))
+                        await m.delete()
                     except Exception:
                         pass
-                    self.db.settings_table.remove(self.db.Setting.key == setting["key"])
+                    self.db.settings_table.remove(self.db.Setting.key == s["key"])
             return
-
         for it in items:
             await self._post_single(channel, it["id"])
 
-    # ───────────── internal – one item, one message ───────────────
+    # ─── one embed per resource ───────────────────────────────
     async def _post_single(self, channel, item_id: str):
         item = self.db.get_resource(item_id)
+        key = f"msg_{item_id}"
+
         if not item or item["demand"] == "low":
-            # demand dropped to low → delete any old message
-            key = f"msg_{item_id}"
+            # delete & forget
             mid = self.db.get_setting(key)
             if mid:
                 try:
-                    msg = await channel.fetch_message(int(mid))
-                    await msg.delete()
+                    m = await channel.fetch_message(int(mid)); await m.delete()
                 except Exception:
                     pass
                 self.db.settings_table.remove(self.db.Setting.key == key)
             return
 
-        embed = discord.Embed(
-            title=item["name"],
-            url=item["dgt_slug"],
-            description=f"**Demand:** {item['demand'].capitalize()}",
-            colour=discord.Color.dark_orange() if item["demand"] == "high"
-                   else discord.Color.orange(),
-        )
-        if item["image_url"]:
-            embed.set_thumbnail(url=item["image_url"])
+        # build embed
+        detail = item.get("details", "").strip()
+        detail = textwrap.shorten(detail, width=350, placeholder=" …") if detail else "—"
+        body = (f"**Demand:** {item['demand'].capitalize()}\n"
+                f"*{item['type']} • Tier {item['tier']}*\n\n"
+                f"{detail}")
+
+        colour = discord.Color.dark_orange() if item["demand"] == "high" else discord.Color.orange()
+        embed = discord.Embed(title=item["name"], url=item["dgt_slug"],
+                              description=body, colour=colour)
+        if item.get("image_url"): embed.set_thumbnail(url=item["image_url"])
         embed.set_footer(text=_quip())
 
         view = DemandView(item, self.db)
 
-        key = f"msg_{item_id}"
         mid = self.db.get_setting(key)
         if mid:
             try:
@@ -182,12 +166,11 @@ class AdvisorCog(commands.Cog):
                 await msg.edit(embed=embed, view=view)
                 return
             except (discord.NotFound, discord.Forbidden):
-                pass  # fall through -> send new
-
+                pass
         msg = await channel.send(embed=embed, view=view)
         self.db.set_setting(key, msg.id)
 
-    # ─────────────── /report commands ───────────────
+    # ─── /report commands ────────────────────────────────────
     @report.command(name="start")
     @discord.default_permissions(manage_guild=True)
     async def rep_start(self, ctx):
@@ -200,24 +183,22 @@ class AdvisorCog(commands.Cog):
         await self.post_demand_report(ctx.channel)
         await ctx.respond("Reports refreshed.", ephemeral=True)
 
-    # ─────────────── /demand set ───────────────
+    # ─── /demand set ──────────────────────────────────────────
     async def _ac(self, ctx: discord.AutocompleteContext):
         q = ctx.value.lower()
         items = sorted(self.db.get_all_resources(), key=lambda x: x["name"])
         return [i["name"] for i in items if q in i["name"].lower()][:25]
 
     @demand.command(name="set")
-    async def demand_set(
-        self, ctx,
-        item: discord.Option(str, autocomplete=_ac),
-        level: discord.Option(str, choices=["high", "medium", "low"])
-    ):
+    async def demand_set(self, ctx,
+                         item: discord.Option(str, autocomplete=_ac),
+                         level: discord.Option(str, choices=["high", "medium", "low"])):
         ent = self.db.resources_table.get(self.db.Resource.name == item)
         if not ent:
             return await ctx.respond("Item not found.", ephemeral=True)
-
         self.db.set_demand(ent["id"], level)
         await ctx.respond(f"**{item}** demand set to **{level}**.", ephemeral=True)
         await self._post_single(ctx.channel, ent["id"])
 
+# required for extension loader
 def setup(bot): bot.add_cog(AdvisorCog(bot))

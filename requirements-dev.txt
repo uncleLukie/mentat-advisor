@@ -1,0 +1,7 @@
+py-cord
+tinydb~=4.8.2
+python-dotenv~=1.1.0
+requests~=2.32.4
+pytest
+dpytest
+pytest-asyncio
