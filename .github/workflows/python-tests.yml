@@ -5,32 +5,38 @@ on: [push, pull_request]
 jobs:
   pytest:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        python-version: ["3.13"]          # keep your target runtime
+        python-version: ["3.13"]
+
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - name: Set-up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: "pip"
+    - name: Set-up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: pip
 
-      - name: Install runtime deps
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt      # <-- your bot’s deps
+    # ───────────────────────────────────────────────────────────────
+    # 1. install *test* libs first ― but dpytest with --no-deps
+    #    so it does **not** drag discord.py into the env.
+    # ───────────────────────────────────────────────────────────────
+    - name: Install dev-only dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-asyncio \
+                dpytest --no-deps \
+                tinydb
 
-      - name: Install test-only deps
-        # dpytest *is* the package you want; it exposes the
-        #   module name `discord.ext.test`
-        run: |
-          pip install \
-              pytest            \
-              pytest-asyncio     \
-              dpytest            \
-              tinydb
+    # ───────────────────────────────────────────────────────────────
+    # 2. runtime deps second (py-cord, aiohttp, etc.).
+    #    this guarantees the `discord` namespace on disk is Py-Cord.
+    # ───────────────────────────────────────────────────────────────
+    - name: Install runtime deps
+      run: |
+        pip install -r requirements.txt
 
-      - name: Run tests
-        run: pytest -v
+    - name: Run tests
+      run: pytest -v
