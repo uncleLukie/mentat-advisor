@@ -1,7 +1,6 @@
 import pytest
 import os
 from unittest.mock import patch, MagicMock
-import requests
 from tinydb import TinyDB, Query
 from src.core.database import MentatDB
 
