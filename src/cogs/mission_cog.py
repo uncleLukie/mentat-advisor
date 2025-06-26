@@ -19,6 +19,11 @@ def _quip() -> str:
     ]
     return random.choice(lines)
 
+# ─────────────────── Autocomplete Functions ───────────────────
+async def timezone_autocomplete(ctx: discord.AutocompleteContext):
+    """Returns a list of matching timezones."""
+    return [tz for tz in pytz.all_timezones if ctx.value.lower() in tz.lower()][:25]
+
 # ────────────────────── Mission Modal ──────────────────────
 class MissionModal(Modal):
     def __init__(self, db, timezone):
@@ -26,9 +31,11 @@ class MissionModal(Modal):
         self.db = db
         self.timezone = timezone
 
+        now = datetime.datetime.now(pytz.timezone(timezone))
+
         self.add_item(InputText(label="Mission Details", style=discord.InputTextStyle.long))
-        self.add_item(InputText(label="Date (YYYY-MM-DD)", placeholder="YYYY-MM-DD"))
-        self.add_item(InputText(label="Time (24-hour format)", placeholder="HH:MM"))
+        self.add_item(InputText(label="Date (YYYY-MM-DD)", value=now.strftime("%Y-%m-%d")))
+        self.add_item(InputText(label="Time (24-hour format)", value=now.strftime("%H:%M")))
 
     async def callback(self, interaction: discord.Interaction):
         details = self.children[0].value
@@ -107,16 +114,26 @@ class MissionCog(commands.Cog):
         self.cleanup_loop.start()
 
     mission = SlashCommandGroup("mission", "Mission commands")
+    user = SlashCommandGroup("user", "User settings")
 
     @mission.command(name="create")
     async def create_mission(self, ctx: discord.ApplicationContext):
         timezone = self.db.get_user_timezone(ctx.author.id)
         if not timezone:
-            await ctx.respond("Please set your timezone first using `/user set_timezone`.", ephemeral=True)
+            await ctx.respond("To create a mission, you must first set your timezone. Use the `/user set_timezone` command. This is a one-time setup.", ephemeral=True)
             return
 
         modal = MissionModal(self.db, timezone)
         await ctx.send_modal(modal)
+
+    @user.command(name="set_timezone")
+    async def set_timezone(self, ctx: discord.ApplicationContext, timezone: discord.Option(str, autocomplete=timezone_autocomplete)):
+        try:
+            pytz.timezone(timezone)
+            self.db.set_user_timezone(ctx.author.id, timezone)
+            await ctx.respond(f"Your timezone has been set to {timezone}. You can now use `/mission create`.", ephemeral=True)
+        except pytz.UnknownTimeZoneError:
+            await ctx.respond("Invalid timezone. Please select a valid timezone from the list.", ephemeral=True)
 
     @tasks.loop(hours=1)
     async def cleanup_loop(self):
