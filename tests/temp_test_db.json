@@ -1,0 +1,31 @@
+{
+    "resources": {
+        "1": {
+            "id": "spice",
+            "name": "Spice",
+            "type": "Resource",
+            "tier": 1,
+            "demand": "low"
+        },
+        "2": {
+            "id": "water",
+            "name": "Water",
+            "type": "Resource",
+            "tier": 1,
+            "demand": "medium"
+        },
+        "3": {
+            "id": "solari",
+            "name": "Solari",
+            "type": "Currency",
+            "tier": 0,
+            "demand": "high"
+        }
+    },
+    "user_settings": {
+        "1": {
+            "user_id": 123,
+            "timezone": "Europe/London"
+        }
+    }
+}

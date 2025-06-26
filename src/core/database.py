@@ -25,6 +25,14 @@ class MentatDB:
         load_dotenv()
         self.google_sheet_url = os.getenv('GOOGLE_SHEET_URL')
 
+    def close(self):
+        """Closes the database connection."""
+        self.db.close()
+
+    def close(self):
+        """Closes the database connection."""
+        self.db.close()
+
     def sync_from_google_sheet(self):
         """Fetches data from the Google Sheet and syncs it with the resources table."""
         if not self.google_sheet_url:
