@@ -14,9 +14,13 @@ class MentatDB:
         os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
         self.db = TinyDB(DB_PATH, indent=4)
         self.resources_table = self.db.table('resources')
-        self.settings_table = self.db.table('settings')  # New table for bot settings
+        self.settings_table = self.db.table('settings')
+        self.missions_table = self.db.table('missions')
+        self.user_settings_table = self.db.table('user_settings')
         self.Resource = Query()
         self.Setting = Query()
+        self.Mission = Query()
+        self.UserSetting = Query()
 
         load_dotenv()
         self.google_sheet_url = os.getenv('GOOGLE_SHEET_URL')
@@ -86,3 +90,35 @@ class MentatDB:
     def set_setting(self, key: str, value):
         """Saves a setting value to the database."""
         self.settings_table.upsert({'key': key, 'value': value}, self.Setting.key == key)
+
+    # --- Mission Functions ---
+    def create_mission(self, mission_id: int, message_id: int, channel_id: int, creator_id: int, details: str, time: str):
+        self.missions_table.insert({
+            'id': mission_id,
+            'message_id': message_id,
+            'channel_id': channel_id,
+            'creator_id': creator_id,
+            'details': details,
+            'time': time,
+            'participants': [creator_id]
+        })
+
+    def get_mission(self, message_id: int):
+        return self.missions_table.get(self.Mission.message_id == message_id)
+
+    def get_all_missions(self):
+        return self.missions_table.all()
+
+    def update_mission_participants(self, message_id: int, participants: list[int]):
+        self.missions_table.update({'participants': participants}, self.Mission.message_id == message_id)
+
+    def delete_mission(self, message_id: int):
+        self.missions_table.remove(self.Mission.message_id == message_id)
+
+    # --- User Settings Functions ---
+    def set_user_timezone(self, user_id: int, timezone: str):
+        self.user_settings_table.upsert({'user_id': user_id, 'timezone': timezone}, self.UserSetting.user_id == user_id)
+
+    def get_user_timezone(self, user_id: int):
+        result = self.user_settings_table.get(self.UserSetting.user_id == user_id)
+        return result['timezone'] if result else None
