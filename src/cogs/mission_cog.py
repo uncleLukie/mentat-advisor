@@ -58,12 +58,7 @@ _{details}_""",
         )
         embed.add_field(name="\u200b", value="\u200b", inline=False) # Spacer
         ts = int(mission_time.timestamp())
-        host_time_str = f"{mission_time.strftime('%H:%M')} {mission_time.tzname()}"
-        embed.add_field(
-            name="🕰️ Commencement",
-            value=f"<t:{ts}:F>\n*This will display in your local time.*\n(Host's Time: {host_time_str})",
-            inline=False
-        )
+        embed.add_field(name="🕰️ Commencement", value=f"<t:{ts}:F> (<t:{ts}:R>)", inline=False)
         embed.add_field(name=" operatives", value=f"<@{interaction.user.id}>", inline=False)
         embed.set_footer(text=_quip())
 
