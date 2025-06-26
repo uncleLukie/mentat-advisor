@@ -18,6 +18,9 @@ def run_around_tests():
     # Patch DB_PATH to use the temporary test database
     with patch('src.core.database.DB_PATH', TEST_DB_PATH):
         yield
+    
+    if os.path.exists(TEST_DB_PATH):
+        os.remove(TEST_DB_PATH)
 
 @pytest.fixture
 def db_instance():
@@ -30,21 +33,17 @@ def db_instance():
             {'id': 'solari', 'name': 'Solari', 'type': 'Currency', 'tier': 0, 'demand': 'high'}
         ])
         yield db
-        db.close()
 
 class TestMentatDB:
     def test_db_initialization(self):
         """Test that the database initializes correctly and tables are created."""
         with patch('src.core.database.DB_PATH', TEST_DB_PATH):
             db = MentatDB()
-            try:
-                assert isinstance(db.db, TinyDB)
-                assert db.resources_table is not None
-                assert db.settings_table is not None
-                assert db.missions_table is not None
-                assert db.user_settings_table is not None
-            finally:
-                db.close()
+            assert isinstance(db.db, TinyDB)
+            assert db.resources_table is not None
+            assert db.settings_table is not None
+            assert db.missions_table is not None
+            assert db.user_settings_table is not None
 
     def test_set_demand(self, db_instance):
         """Test setting the demand level for a resource."""
@@ -94,16 +93,13 @@ class TestMentatDB:
 
         with patch('src.core.database.DB_PATH', TEST_DB_PATH):
             db = MentatDB()
-            try:
-                db.sync_from_google_sheet()
+            db.sync_from_google_sheet()
 
-                resources = db.resources_table.all()
-                assert len(resources) == 2
-                assert db.get_resource('spice')['name'] == 'Spice'
-                assert db.get_resource('water')['type'] == 'Resource'
-                assert db.get_resource('spice')['dgt_slug'] == 'spice_slug'
-            finally:
-                db.close()
+            resources = db.resources_table.all()
+            assert len(resources) == 2
+            assert db.get_resource('spice')['name'] == 'Spice'
+            assert db.get_resource('water')['type'] == 'Resource'
+            assert db.get_resource('spice')['dgt_slug'] == 'spice_slug'
 
     @patch('src.core.database.requests.get')
     @patch('src.core.database.os.getenv')
@@ -116,17 +112,14 @@ class TestMentatDB:
 
         with patch('src.core.database.DB_PATH', TEST_DB_PATH):
             db = MentatDB()
-            try:
-                db.resources_table.insert({'id': 'existing', 'name': 'Existing', 'demand': 'low'}) # Add some existing data
-                
-                db.sync_from_google_sheet()
+            db.resources_table.insert({'id': 'existing', 'name': 'Existing', 'demand': 'low'}) # Add some existing data
+            
+            db.sync_from_google_sheet()
 
-                # Database should not be truncated if no data is found in sheet
-                resources = db.resources_table.all()
-                assert len(resources) == 1
-                assert db.get_resource('existing')['name'] == 'Existing'
-            finally:
-                db.close()
+            # Database should not be truncated if no data is found in sheet
+            resources = db.resources_table.all()
+            assert len(resources) == 1
+            assert db.get_resource('existing')['name'] == 'Existing'
 
     @patch('src.core.database.os.getenv')
     def test_sync_from_google_sheet_no_url(self, mock_getenv):
@@ -135,17 +128,14 @@ class TestMentatDB:
 
         with patch('src.core.database.DB_PATH', TEST_DB_PATH):
             db = MentatDB()
-            try:
-                db.resources_table.insert({'id': 'existing', 'name': 'Existing', 'demand': 'low'}) # Add some existing data
-                
-                db.sync_from_google_sheet()
+            db.resources_table.insert({'id': 'existing', 'name': 'Existing', 'demand': 'low'}) # Add some existing data
+            
+            db.sync_from_google_sheet()
 
-                # Database should remain unchanged
-                resources = db.resources_table.all()
-                assert len(resources) == 1
-                assert db.get_resource('existing')['name'] == 'Existing'
-            finally:
-                db.close()
+            # Database should remain unchanged
+            resources = db.resources_table.all()
+            assert len(resources) == 1
+            assert db.get_resource('existing')['name'] == 'Existing'
 
     @patch('src.core.database.requests.get')
     @patch('src.core.database.os.getenv')
@@ -156,17 +146,14 @@ class TestMentatDB:
 
         with patch('src.core.database.DB_PATH', TEST_DB_PATH):
             db = MentatDB()
-            try:
-                db.resources_table.insert({'id': 'existing', 'name': 'Existing', 'demand': 'low'}) # Add some existing data
-                
-                db.sync_from_google_sheet()
+            db.resources_table.insert({'id': 'existing', 'name': 'Existing', 'demand': 'low'}) # Add some existing data
+            
+            db.sync_from_google_sheet()
 
-                # Database should remain unchanged
-                resources = db.resources_table.all()
-                assert len(resources) == 1
-                assert db.get_resource('existing')['name'] == 'Existing'
-            finally:
-                db.close()
+            # Database should remain unchanged
+            resources = db.resources_table.all()
+            assert len(resources) == 1
+            assert db.get_resource('existing')['name'] == 'Existing'
 
     @patch('src.core.database.requests.get')
     @patch('src.core.database.os.getenv')
@@ -179,21 +166,18 @@ class TestMentatDB:
 
         with patch('src.core.database.DB_PATH', TEST_DB_PATH):
             db = MentatDB()
-            try:
-                # Set initial demand for spice
-                db.resources_table.insert({'id': 'spice', 'name': 'Spice', 'type': 'Resource', 'tier': 1, 'demand': 'very_high'})
-                db.resources_table.insert({'id': 'old_item', 'name': 'Old Item', 'type': 'Junk', 'tier': 0, 'demand': 'low'})
+            # Set initial demand for spice
+            db.resources_table.insert({'id': 'spice', 'name': 'Spice', 'type': 'Resource', 'tier': 1, 'demand': 'very_high'})
+            db.resources_table.insert({'id': 'old_item', 'name': 'Old Item', 'type': 'Junk', 'tier': 0, 'demand': 'low'})
 
-                db.sync_from_google_sheet()
+            db.sync_from_google_sheet()
 
-                spice_resource = db.get_resource('spice')
-                assert spice_resource['demand'] == 'very_high' # Demand should be preserved
-                assert db.get_resource('old_item') is None # Old item should be removed if not in sheet
+            spice_resource = db.get_resource('spice')
+            assert spice_resource['demand'] == 'very_high' # Demand should be preserved
+            assert db.get_resource('old_item') is None # Old item should be removed if not in sheet
 
-                water_resource = db.get_resource('water')
-                assert water_resource['demand'] == 'low' # New item should have default demand
-            finally:
-                db.close()
+            water_resource = db.get_resource('water')
+            assert water_resource['demand'] == 'low' # New item should have default demand
 
     def test_set_and_get_setting(self, db_instance):
         """Test setting and getting a general setting."""
