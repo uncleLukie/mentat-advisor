@@ -1,4 +1,4 @@
-py-cord
+git+https://github.com/Pycord-Development/pycord.git@8619b6902b79b72438e229b2715e0c7642b70333#egg=py-cord
 tinydb~=4.8.2
 python-dotenv~=1.1.0
 requests~=2.32.4
