@@ -21,6 +21,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        pip install pytest-asyncio
+    - name: List installed packages
+      run: pip list
+    - name: List installed packages
+      run: pip freeze
     - name: Test with pytest
       run: |
         pytest tests/

@@ -2,6 +2,7 @@ import pytest
 import os
 from unittest.mock import patch, MagicMock
 import requests
+from requests.exceptions import RequestException
 from tinydb import TinyDB, Query
 from src.core.database import MentatDB
 
