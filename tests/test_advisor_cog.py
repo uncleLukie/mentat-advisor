@@ -2,8 +2,6 @@ import pytest
 import discord
 from discord.ext import commands
 from unittest.mock import AsyncMock, MagicMock, patch
-import pytest_asyncio
-import pytest_asyncio
 from src.cogs.advisor_cog import AdvisorCog, _quip, DemandView, DemandSelect
 
 # Mock the MentatDB for testing purposes
@@ -60,8 +58,7 @@ class TestAdvisorCog:
         assert isinstance(_quip(), str)
         assert len(_quip()) > 0
 
-    @pytest.mark.asyncio
-    async def test_demand_view_init(self):
+    def test_demand_view_init(self):
         """Test DemandView initialization."""
         item = {'id': 'test', 'name': 'Test Item', 'tier': 1, 'demand': 'low'}
         view = DemandView(item, self.db)
