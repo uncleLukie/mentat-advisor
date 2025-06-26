@@ -50,9 +50,21 @@ class MissionModal(Modal):
             await interaction.response.send_message("Invalid date or time format. Please use YYYY-MM-DD and HH:MM.", ephemeral=True)
             return
 
-        embed = discord.Embed(title="Mission Briefing", description=details, color=discord.Color.dark_red())
-        embed.add_field(name="Participants", value=f"<@{interaction.user.id}>", inline=False)
-        embed.add_field(name="Time", value=f"<t:{int(mission_time.timestamp())}:F>", inline=False)
+        embed = discord.Embed(
+            title="💀 Harkonnen Directive 💀",
+            description=f"""By order of the Baron, the following operation is decreed:\n
+_{details}_""",
+            color=discord.Color.dark_red()
+        )
+        embed.add_field(name="\u200b", value="\u200b", inline=False) # Spacer
+        ts = int(mission_time.timestamp())
+        host_time_str = f"{mission_time.strftime('%H:%M')} {mission_time.tzname()}"
+        embed.add_field(
+            name="🕰️ Commencement",
+            value=f"<t:{ts}:F>\n*This will display in your local time.*\n(Host's Time: {host_time_str})",
+            inline=False
+        )
+        embed.add_field(name=" operatives", value=f"<@{interaction.user.id}>", inline=False)
         embed.set_footer(text=_quip())
 
         view = ConfirmView(self.db, embed, mission_time)
@@ -86,25 +98,53 @@ class MissionView(discord.ui.View):
         self.mission_id = mission_id
         self.db = db
 
-    @discord.ui.button(label="Join", style=discord.ButtonStyle.success, custom_id="join_mission")
+    async def update_embed(self, interaction: discord.Interaction):
+        mission = self.db.get_mission(self.mission_id)
+        embed = interaction.message.embeds[0]
+        participant_list = "\n".join([f"<@{p}>" for p in mission['participants']]) or "_No one yet_"
+        embed.set_field_at(2, name=" operatives", value=participant_list, inline=False)
+        await interaction.message.edit(embed=embed)
+
+    @discord.ui.button(label="Join", style=discord.ButtonStyle.success)
     async def join_button(self, button: discord.ui.Button, interaction: discord.Interaction):
         mission = self.db.get_mission(self.mission_id)
         if not mission:
-            await interaction.response.send_message("This mission no longer exists.", ephemeral=True)
-            return
+            return await interaction.response.send_message("This mission no longer exists.", ephemeral=True)
 
         if interaction.user.id in mission['participants']:
-            await interaction.response.send_message("You have already joined this mission.", ephemeral=True)
-            return
+            return await interaction.response.send_message("You have already joined this mission.", ephemeral=True)
 
         mission['participants'].append(interaction.user.id)
         self.db.update_mission_participants(self.mission_id, mission['participants'])
-        
-        embed = interaction.message.embeds[0]
-        embed.set_field_at(0, name="Participants", value="\n".join([f"<@{p}>" for p in mission['participants']]), inline=False)
-        
-        await interaction.message.edit(embed=embed)
+        await self.update_embed(interaction)
         await interaction.response.send_message("You have joined the mission.", ephemeral=True)
+
+    @discord.ui.button(label="Leave", style=discord.ButtonStyle.secondary)
+    async def leave_button(self, button: discord.ui.Button, interaction: discord.Interaction):
+        mission = self.db.get_mission(self.mission_id)
+        if not mission:
+            return await interaction.response.send_message("This mission no longer exists.", ephemeral=True)
+
+        if interaction.user.id not in mission['participants']:
+            return await interaction.response.send_message("You are not part of this mission.", ephemeral=True)
+
+        mission['participants'].remove(interaction.user.id)
+        self.db.update_mission_participants(self.mission_id, mission['participants'])
+        await self.update_embed(interaction)
+        await interaction.response.send_message("You have left the mission.", ephemeral=True)
+
+    @discord.ui.button(label="Cancel Mission", style=discord.ButtonStyle.danger)
+    async def cancel_button(self, button: discord.ui.Button, interaction: discord.Interaction):
+        mission = self.db.get_mission(self.mission_id)
+        if not mission:
+            return await interaction.response.send_message("This mission no longer exists.", ephemeral=True)
+
+        if interaction.user.id != mission['creator_id']:
+            return await interaction.response.send_message("You are not the creator of this mission.", ephemeral=True)
+
+        await interaction.message.delete()
+        self.db.delete_mission(self.mission_id)
+        await interaction.response.send_message("Mission cancelled.", ephemeral=True)
 
 # ──────────────────────────── COG ────────────────────────────
 class MissionCog(commands.Cog):
